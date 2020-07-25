@@ -35,3 +35,19 @@ def preprocess_tweet(tweet):
         tweet_stemmed.append(stem_word)
 
     return tweet_stemmed
+    
+def get_freq(tweets, labels):
+    '''
+    tweets = list of tweets
+    labels = list of tweets labels
+    returns a dictionary with frequencies of each word for each label
+    '''
+    freq = {}
+    labels = labels.tolist()
+    
+    for tweet, y in zip(tweets, labels):
+        for word in preprocess_tweet(tweet):
+            pair = (word, y)
+            freq[pair] = freq.get(pair, 0) + 1
+    
+    return freq
